@@ -45,4 +45,18 @@ export class UserServices {
       throw CustonError.internalServer(`${error}`);
     }
   }
+  public async getAllUsers() {
+    try {
+      const users = await UserModel.find({});
+      return users;
+    } catch (error) {
+      console.log(error);
+      throw CustonError.internalServer('Internal Server Error');
+    }
+  }
+
+
+
+
+
 }

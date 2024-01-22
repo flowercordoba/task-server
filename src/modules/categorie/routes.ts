@@ -11,11 +11,11 @@ export class CategorieRoutes {
 
     const controller = new Categorie(categoryService);
 
-    router.post('/create', controller.Create);
-    router.get('/read/:id', controller.Read);
-    router.get('/read', controller.getCategories);
-    router.post('/update/:id', controller.Edit);
-    router.delete('/detele/:id', controller.Delete);
+    router.post('/categorie/create', controller.Create);
+    router.get('/categorie/read/:id', controller.Read);
+    router.get('/categorie/read', controller.getCategories);
+    router.post('/categorie/update/:id', controller.Edit);
+    router.delete('/categorie/detele/:id', controller.Delete);
     return router;
   }
 }

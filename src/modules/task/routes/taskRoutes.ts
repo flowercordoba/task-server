@@ -11,12 +11,12 @@ export class Taskroutes {
     const controller = new TaskController(taskService);
 
     router.post('/task/create', controller.create);
-    router.post('/task/:id', controller.getTaskById);
-    router.post('/task', controller.getTasks);
+    router.get('/task/:id', controller.getTaskById);
+    router.get('/task', controller.getTasks);
     router.put('/task/edit/:id', controller.edit);
     router.post('/task/asignar/:id', controller.asignar);
     router.post('/task/completed/:id', controller.getCompletedTasksByPriority);
-    router.put('/task/delete/:id', controller.delete);
+    router.delete('/task/delete/:id', controller.delete);
 
 
     return router;

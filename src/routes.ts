@@ -4,7 +4,7 @@
 // import { userRoutes } from '@user/routes/userRoutes';
 import { Authroutes } from '@auth/routes/authRoutes';
 import { AuthMiddleware } from '@middleware/auth.middleware';
-import { Taskroutes } from '@task/routes/authRoutes';
+import { Taskroutes } from '@task/routes/taskRoutes';
 import { Application } from 'express';
 import { CategorieRoutes } from './modules/categorie/routes';
 import { GitRoutes } from './modules/github/routes';
@@ -23,7 +23,7 @@ export default (app: Application) => {
     app.use(BASE_PATH, AuthMiddleware.validateJWT, CategorieRoutes.routes);
     app.use(BASE_PATH, AuthMiddleware.validateJWT, NotificationRoutes.routes);
     // app.use(BASE_PATH, authRoutes.signoutRoute());
-    app.use(BASE_PATH, AuthMiddleware.validateJWT, userRoutes.routes());
+    app.use(BASE_PATH,AuthMiddleware.validateJWT,userRoutes.routes());
   };
 
   routes();

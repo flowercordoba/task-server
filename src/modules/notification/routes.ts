@@ -17,7 +17,7 @@ export class NotificationRoutes {
     const notificationService = new NotificationService(emailService);
     const controller = new NotificationController(notificationService);
 
-    router.post('/notifications', controller.createNotification);
+    router.post('/notifications/create', controller.createNotification);
     router.get('/notifications/user/:userId', controller.getUserNotifications);
     router.put('/notifications/:notificationId/read', controller.markNotificationAsRead);
 
