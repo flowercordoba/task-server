@@ -26,8 +26,10 @@
     "paths": {
       "@auth/*": ["src/modules/auth/*"],
       "@user/*": ["src/modules/user/*"],
+      "@task/*": ["src/modules/task/*"],
       "@helpers/*": ["src/shared/helpers/*"],
       "@service/*": ["src/shared/services/*"],
+      "@notification/*": ["src/modules/notification/*"],
       "@interfaces/*": ["src/shared/interfaces/*"],
       "@middleware/*": ["src/shared/middlewares/*"],
       "@validator/*": ["src/shared/validators/*"],

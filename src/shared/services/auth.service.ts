@@ -10,9 +10,9 @@ import { EmailService } from './email.service';
 import { JwtAdapter, bcryptAdapter } from '@helpers/utils';
 
 export class AuthService {
-  // DI
+
   constructor(
-    // DI - Email Service
+
     private readonly emailService: EmailService
   ) {}
 

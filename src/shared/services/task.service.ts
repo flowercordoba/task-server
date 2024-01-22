@@ -2,6 +2,7 @@
 import { TaskModel } from '@data/mongo';
 import { CustonError } from '..';
 import { PaginationDto, TaskDto } from '../../domain';
+import { Types } from 'mongoose';
 
 /**
  * La clase TaskService proporciona la lógica de negocio para la gestión de tareas.
@@ -127,6 +128,34 @@ export class TaskService {
         throw new CustonError(404, 'Task not found');
       }
       return { message: 'Task deleted successfully' };
+    } catch (error) {
+      throw CustonError.internalServer(`${error}`);
+    }
+  }
+
+   /**
+   * Asigna usuarios a una tarea específica.
+   *
+   * @param taskId - El ID de la tarea a la que se van a asignar los usuarios.
+   * @param userIds - Lista de IDs de los usuarios a asignar a la tarea.
+   * @throws {CustonError} Si la tarea no se encuentra o si hay un error en el servidor.
+   * @returns La tarea actualizada.
+   */
+   async asignarTask(taskId: string, userIds: string[]) {
+    try {
+      const task = await TaskModel.findById(taskId);
+      if (!task) {
+        throw new CustonError(404, 'Task not found');
+      }
+
+      // Convierte los string a ObjectId
+      const objectIdUserIds = userIds.map(id => new Types.ObjectId(id));
+
+      // Actualiza la lista de usuarios asignados a la tarea.
+      task.assignedUsers = objectIdUserIds;
+      await task.save();
+
+      return task;
     } catch (error) {
       throw CustonError.internalServer(`${error}`);
     }
