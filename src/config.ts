@@ -5,7 +5,7 @@ dotenv.config({});
 
 class Config {
   public DATABASE_URL: string | undefined;
-  public JWT_TOKEN: string | undefined;
+  public JWT_TOKEN: string;
   public NODE_ENV: string | undefined;
   public SECRET_KEY_ONE: string | undefined;
   public SECRET_KEY_TWO: string | undefined;
@@ -24,7 +24,7 @@ class Config {
   public MAILER_EMAIL: string | number;
   public MAILER_SECRET_KEY: string | number;
   public SEND_EMAIL: string | number;
-  public DISCORD_WEBHOOK_URL: string | number;
+  public DISCORD_WEBHOOK_URL: string;
   public WEBSERVICE_URL: string | number;
 
   private readonly DEFAULT_DATABASE_URL = 'mongodb://localhost:27017/chattyapp-backend';
