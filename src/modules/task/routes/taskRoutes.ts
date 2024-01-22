@@ -14,6 +14,8 @@ export class Taskroutes {
     router.get('/task/:id', controller.getTaskById);
     router.get('/task', controller.getTasks);
     router.put('/task/edit/:id', controller.edit);
+    router.put('/task/:taskId/complete', controller.markTaskAsCompleted);
+    router.put('/task/:taskId/in-progress', controller.markTaskAsInProgress);
     router.post('/task/asignar/:id', controller.asignar);
     router.post('/task/completed/:id', controller.getCompletedTasksByPriority);
     router.delete('/task/delete/:id', controller.delete);

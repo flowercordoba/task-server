@@ -122,6 +122,7 @@ export class TaskService {
   }
 
   async deleteTask(id: string) {
+    
     try {
       const deletedTask = await TaskModel.findByIdAndDelete(id);
       if (!deletedTask) {
@@ -160,4 +161,31 @@ export class TaskService {
       throw CustonError.internalServer(`${error}`);
     }
   }
+  public async markTaskAsCompleted(taskId: string) {
+    try {
+      const task = await TaskModel.findByIdAndUpdate(taskId, { isCompleted: true }, { new: true });
+      if (!task) {
+        throw CustonError.notFound('Task not found');
+      }
+      return task;
+    } catch (error) {
+      throw CustonError.internalServer('Internal Server Error');
+    }
+  }
+
+  public async markTaskAsInProgress(taskId: string) {
+    try {
+      const task = await TaskModel.findByIdAndUpdate(taskId, { isCompleted: false }, { new: true });
+      if (!task) {
+        throw CustonError.notFound('Task not found');
+      }
+      return task;
+    } catch (error) {
+      throw CustonError.internalServer('Internal Server Error');
+    }
+  }
+
+
+
+
 }

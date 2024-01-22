@@ -111,4 +111,26 @@ export class TaskController {
       this.handleError(error, res);
     }
   };
+
+  public async markTaskAsInProgress(req: Request, res: Response): Promise<void> {
+    try {
+      const taskId = req.params.taskId;
+      const updatedTask = await this.taskService.markTaskAsInProgress(taskId);
+      res.status(200).json(updatedTask);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+  public async markTaskAsCompleted(req: Request, res: Response): Promise<void> {
+    try {
+      const taskId = req.params.taskId;
+      const updatedTask = await this.taskService.markTaskAsCompleted(taskId);
+      res.status(200).json(updatedTask);
+    } catch (error) {
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+
+
+
 }

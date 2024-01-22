@@ -18,7 +18,7 @@ class UserRoutes {
 
   public routes(): Router {
     this.router.get('/user/profile', this.getController.profile.bind(this.getController));
-    this.router.get('/user/profile/:userId', this.getController.profileByUserId.bind(this.getController));
+    this.router.get('/user/profile/:id', this.getController.profileByUserId.bind(this.getController));
     this.router.get('/user/list', this.getUsersController.getUsers.bind(this.getUsersController));
 
     return this.router;
