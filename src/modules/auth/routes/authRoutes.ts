@@ -1,30 +1,25 @@
-import { Password } from '@auth/controllers/password';
-import { SignIn } from '@auth/controllers/signin';
-import { SignOut } from '@auth/controllers/signout';
-import { SignUp } from '@auth/controllers/signup';
-import express, { Router } from 'express';
-
-class AuthRoutes {
-  private router: Router;
-
-  constructor() {
-    this.router = express.Router();
-  }
-
-  public routes(): Router {
-    this.router.post('/register', SignUp.prototype.create);
-    this.router.post('/auth/login', SignIn.prototype.read);
-    this.router.post('/forgot-password', Password.prototype.create);
+import { Auth } from '@auth/controllers/controller';
+import { config } from '@root/config';
+import { AuthService } from '@service/auth.service';
+import { EmailService } from '@service/email.service';
+import { Router } from 'express';
 
 
-    return this.router;
-  }
+export class Authroutes {
+  static get routes(): Router {
+    const router = Router();
 
-  public signoutRoute(): Router {
-    this.router.get('/signout', SignOut.prototype.update);
+    const emailService = new EmailService(config.MAILER_SERVICE, config.MAILER_EMAIL, config.MAILER_SECRET_KEY, config.SEND_EMAIL);
 
-    return this.router;
+    const authService = new AuthService(emailService);
+
+    const controller = new Auth(authService);
+
+    router.post('/auth/login', controller.loginCTRL);
+    router.post('/auth/register', controller.registerCTRL);
+
+    router.get('/validate-email/:token', controller.emailValidate);
+
+    return router;
   }
 }
-
-export const authRoutes: AuthRoutes = new AuthRoutes();

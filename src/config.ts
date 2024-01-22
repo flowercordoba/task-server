@@ -20,12 +20,12 @@ class Config {
   public SENDGRID_SENDER: string | undefined;
   public EC2_URL: string | undefined;
   public PORT: string | number;
-  public MAILER_SERVICE: string | number;
-  public MAILER_EMAIL: string | number;
-  public MAILER_SECRET_KEY: string | number;
-  public SEND_EMAIL: string | number;
+  public MAILER_SERVICE: string;
+  public MAILER_EMAIL: string;
+  public MAILER_SECRET_KEY: string;
+  public SEND_EMAIL: boolean;
   public DISCORD_WEBHOOK_URL: string;
-  public WEBSERVICE_URL: string | number;
+  public WEBSERVICE_URL: string ;
 
   private readonly DEFAULT_DATABASE_URL = 'mongodb://localhost:27017/chattyapp-backend';
 
@@ -37,7 +37,7 @@ class Config {
     this.SECRET_KEY_TWO = process.env.SECRET_KEY_TWO || '';
     this.MAILER_SERVICE = process.env.CLIENT_URL || '';
     this.MAILER_EMAIL = process.env.CLIENT_URL || '';
-    this.SEND_EMAIL = process.env.CLIENT_URL || '';
+    this.SEND_EMAIL = process.env.SEND_EMAIL === 'false'; // Convierte a booleano
     this.CLIENT_URL = process.env.CLIENT_URL || '';
     this.DISCORD_WEBHOOK_URL = process.env.CLIENT_URL || '';
     this.MAILER_SECRET_KEY = process.env.CLIENT_URL || '';
