@@ -5,11 +5,7 @@ import helmet from 'helmet';
 import hpp from 'hpp';
 import compression from 'compression';
 import cookieSession from 'cookie-session';
-import { Server } from 'socket.io';
-import { createClient } from 'redis';
-import { createAdapter } from '@socket.io/redis-adapter';
 import Logger from 'bunyan';
-import apiStats from 'swagger-stats';
 import 'express-async-errors';
 import { config } from '@root/config';
 import applicationRoutes from '@root/routes';
@@ -28,7 +24,6 @@ export class TaskServer {
     this.securityMiddleware(this.app);
     this.standardMiddleware(this.app);
     this.routesMiddleware(this.app);
-    this.apiMonitoring(this.app);
     this.startServer(this.app);
   }
 
@@ -65,14 +60,6 @@ export class TaskServer {
     applicationRoutes(app);
   }
 
-  private apiMonitoring(app: Application): void {
-    app.use(
-      apiStats.getMiddleware({
-        uriPath: '/api-monitoring'
-      })
-    );
-  }
-
 
 
   private async startServer(app: Application): Promise<void> {
@@ -87,19 +74,6 @@ export class TaskServer {
     }
   }
 
-  private async createSocketIO(httpServer: http.Server): Promise<Server> {
-    const io: Server = new Server(httpServer, {
-      cors: {
-        origin: config.CLIENT_URL,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-      }
-    });
-    const pubClient = createClient({ url: config.REDIS_HOST });
-    const subClient = pubClient.duplicate();
-    await Promise.all([pubClient.connect(), subClient.connect()]);
-    io.adapter(createAdapter(pubClient, subClient));
-    return io;
-  }
 
   private startHttpServer(httpServer: http.Server): void {
     httpServer.listen(SERVER_PORT, () => {
