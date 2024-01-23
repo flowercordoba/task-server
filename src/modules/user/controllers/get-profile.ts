@@ -8,17 +8,41 @@ export class Get {
   constructor() {
     this.userServices = new UserServices();
   }
+  // public async profile(req: Request, res: Response): Promise<void> {
+  //   try {
+  //     const user = req.body.user;
+
+  //     const userProfile = {
+  //       id: user.id,
+  //       name: user.name,
+  //       email: user.email,
+
+  //     };
+  //     res.status(200).json({
+
+  //       userProfile
+
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).json({ error: 'Internal Server Error' });
+  //   }
+  // }
   public async profile(req: Request, res: Response): Promise<void> {
     try {
       const user = req.body.user;
+      const token = req.headers['authorization'] || ''; 
 
       const userProfile = {
         id: user.id,
         name: user.name,
         email: user.email,
-
+        token: token
       };
-      res.status(200).json({ userProfile });
+
+      res.status(200).json({
+        userProfile
+      });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal Server Error' });
